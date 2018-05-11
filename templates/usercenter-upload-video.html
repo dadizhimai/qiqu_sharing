@@ -1,0 +1,74 @@
+{% extends "usercenter-base.html" %}
+{% block title %}
+    我的课程
+{% endblock %}
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="/user/home/">个人中心</a>></li>
+                <li>我的上传</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block right_content %}
+<div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的上传</h1>
+			</div>
+		</div>
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+                    {% for user_video in user_videos.object_list %}
+
+                    <div class="module1_5 box">
+                            <a href="{% url 'video:video_detail' user_video.video.id %}">
+                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_video.video.image }}"/>
+                            </a>
+                            <div class="des">
+                                <a href="{% url 'video:video_detail' user_video.video.id %}"><h2>{{ user_video.video.name }}</h2></a>
+                                <span class="fl">课时：<i class="key">{{ user_video.video.learn_times }}</i></span>
+                                <span class="fr">学习人数：{{ user_video.video.students }}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl">{{ user_video.video.author }}</span>
+                                <span class="star fr  notlogin" data-favid="15">{{ user_video.video.fav_nums }}</span>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+				</div>
+			</div>
+
+            <div class="pageturn">
+                            <ul class="pagelist">
+                            {% if user_videos.has_previous %}
+                                <li class="long"><a href="?{{ user_videos.previous_page_number.querystring }}">上一页</a></li>
+                            {% endif %}
+                            {% for page in user_videos.pages %}
+                                {% if page %}
+                                    {% ifequal page user_videos.number %}
+                                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li ><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                    {% endifequal %}
+                                {% else %}
+                                     <li class="none"><a href="" >...</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if user_videos.has_next %}
+                                 <li class="long"><a href="?{{ user_videos.next_page_number.querystring }}">下一页</a></li>
+                            {% endif %}
+
+                        </ul>
+                </div>
+		</div>
+	</div>
+{% endblock %}

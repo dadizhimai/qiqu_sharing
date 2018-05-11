@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}美味厨艺列表 - 奇趣知识共享{% endblock %}
+{% block content_bread %}
+     <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">首页</a>></li>
+                <li>
+                    {% if current_nav == 'chuyi'%}
+                    美味厨艺
+                    {% elif current_nav == 'liyi' %}
+                    礼仪文化
+                    {% elif current_nav == 'qiangshen' %}
+                    强身健体
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="list" style="margin-top:0;">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">最新 </a></li>
+						<li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
+						<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">参与人数</a></li>
+					</ul>
+				</div>
+                <div id="inWindow">
+                    <div class="tab_cont " id="content">
+                        <div class="group_list">
+                            {#    循环时应该调用 video_lists.object_list                   #}
+                            {% for video_list in video_lists.object_list %}
+                                <div class="box">
+                                    <a href="{% url 'video:video_detail' video_list.id %}">
+                                        <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ video_list.image }}"/>
+                                    </a>
+                                    <div class="des">
+                                        <a href="{% url 'video:video_detail' video_list.id %}">
+                                            <h2>{{ video_list.name | truncatewords:4 }}</h2>
+                                        </a>
+                                        <span class="fl">时长：<i class="key">{{ video_list.learn_times }}</i></span>
+                                        <span class="fr">学习人数：{{ video_list.students }}&nbsp;&nbsp;</span>
+                                    </div>
+                                    <div class="bottom">
+                                        <a href="{% url 'video:video_detail' video_list.id %}"><span class="fl">{{ video_list.author }}</span></a>
+                                        <span class="star fr  notlogin
+                                            " data-favid="15">
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+
+                        </div>
+                        <div class="pageturn">
+                            <ul class="pagelist">
+
+                            {% if video_lists.has_previous %}
+                                <li class="long"><a href="?{{ video_lists.previous_page_number.querystring }}">上一页</a></li>
+                            {% endif %}
+                            {% for page in video_lists.pages %}
+                                {% if page %}
+                                    {% ifequal page video_lists.number %}
+                                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li ><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                    {% endifequal %}
+                                {% else %}
+                                     <li class="none"><a href="" >...</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if video_lists.has_next %}
+                                 <li class="long"><a href="?{{ video_lists.next_page_number.querystring }}">下一页</a></li>
+                            {% endif %}
+
+{#                                <li class="active"><a href="?page=1">1</a></li>#}
+{#                                <li><a href="?page=2" class="page">2</a></li>#}
+{#                                <li class="long"><a href="?page=2">下一页</a></li>#}
+                        </ul>
+                    </div>
+				    </div>
+                </div>
+			</div>
+			<div class="right layout">
+				<div class="head">热门视频推荐</div>
+				<div class="group_recommend">
+                    {% for hot in hot_video %}
+                         <dl>
+						<dt>
+							<a target="_blank" href="{% url 'video:video_detail' hot.id %}">
+								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot.image }}"/>
+							</a>
+						</dt>
+						<dd>
+							<a target="_blank" href="{% url 'video:video_detail' hot.id %}"><h2> {{ hot.name }}</h2></a>
+							<span class="fl">难度：<i class="key">{{ hot.get_degree_display }}</i></span>
+						</dd>
+					</dl>
+                    {% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+

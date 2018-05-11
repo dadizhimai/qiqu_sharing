@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<title> {% block title %}奇趣知识共享{% endblock %} </title>
+
+{% block content %}
+    <!--crumbs start-->
+
+        <div class="banner">
+                <div class="wp">
+                    <div class="fl">
+                        <div class="imgslide">
+                            <ul class="imgs">
+
+                                <li>
+                                        <a href="http://www.imooc.com">
+                                            <img width="1200" height="478" src="{% static 'media/banner/01.jpg' %}" />
+                                        </a>
+                                    </li>
+
+                                <li>
+                                        <a href="http://www.projectsedu.com">
+                                            <img width="1200" height="478" src="{% static 'media/banner/02.jpg' %}" />
+                                        </a>
+                                    </li>
+
+                                <li>
+                                        <a href="http://www.projectsedu.com">
+                                            <img width="1200" height="478" src="{% static 'media/banner/03.jpg' %}" />
+                                        </a>
+                                    </li>
+
+                                <li>
+                                        <a href="http://www.projectsedu.com">
+                                            <img width="1200" height="478" src="{% static 'media/banner/04.jpg' %}" />
+                                        </a>
+                                    </li>
+
+                                <li>
+                                        <a href="http://www.projectsedu.com">
+                                            <img width="1200" height="478" src="{% static 'media/banner/05.jpg' %}" />
+                                        </a>
+                                    </li>
+
+
+                            </ul>
+                        </div>
+                        <div class="unslider-arrow prev"></div>
+                        <div class="unslider-arrow next"></div>
+                    </div>
+
+                    </div>
+
+
+                </div>
+    <!--banner end-->
+    <!--feature start-->
+        <section>
+            <div class="wp">
+                <ul class="feature">
+                    <li class="feature1">
+                        <img class="pic" src="{% static 'images/feature1.png' %}"/>
+                        <p class="center">奇趣知识</p>
+                    </li>
+                    <li class="feature2">
+                        <img class="pic" src="{% static 'images/feature2.png' %}"/>
+                        <p class="center">美味吃货</p>
+                    </li>
+                    <li class="feature3">
+                        <img class="pic" src="{% static 'images/feature3.png' %}"/>
+                        <p class="center">强身健体</p>
+                    </li>
+                    <li class="feature4">
+                        <img class="pic" src="{% static 'images/feature4.png' %}"/>
+                        <p class="center">生活技巧</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    <!--feature end-->
+    <!--module1 start-->
+         <!--
+            描述：美味厨艺
+         -->
+        <section>
+
+            <div class="module">
+                <div class="wp">
+                    <h1>美味厨艺</h1>
+                    <div class="module1 eachmod">
+                        <div class="module1_1 left">
+                            <img width="228" height="614" src="{% static 'media/meiwei/舌尖.jpg' %}"/>
+                            <p class="fisrt_word">美味厨艺<br/>专业吃货</p>
+                            <a class="more" href="{% url 'video:video_list' 1 %}">查看更多 ></a>
+                        </div>
+                        <div class="right group_list">
+                            <div class="module1_2 box">
+                                <div class="imgslide2">
+                                    <ul class="imgs">
+                                        {% for banner_list in banner_chuyi_lists %}
+                                            <li>
+                                            <a href="{% url 'video:video_detail' banner_list.id %}">
+                                                <img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_list.image }}" />
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="unslider-arrow2 prev"></div>
+                                <div class="unslider-arrow2 next"></div>
+                            </div>
+
+
+                                {% for chuyi_list in chuyi_lists %}
+                                    <div class="module1_3 box">
+                                    <a href="{% url 'video:video_detail' chuyi_list.id %}">
+                                        <img width="233" height="190" src="{{ MEDIA_URL }}{{ chuyi_list.image }}"/>
+                                    </a>
+                                    <div class="des">
+                                        <a href="video-detail.html">
+                                            <h2 title="django入门">{{ chuyi_list.name }}</h2>
+                                        </a>
+                                        <span class="fl">星级：<i class="key">{{ chuyi_list.get_degree_display }}</i></span>
+                                        <span class="fr">学习人数：{{ chuyi_list.students }}</span>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="fl" title="慕课网">{{ chuyi_list.author }}</span>
+                                        <span class="star fr">{{ chuyi_list.click_nums }}</span>
+                                    </div>
+                                   </div>
+                                {% endfor %}
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--
+            作者：1402240120@qq.com
+            时间：2018-03-21
+            描述：生活技巧
+        -->
+        <section>
+
+            <div class="module">
+                <div class="wp">
+                    <h1>生活技巧</h1>
+                    <div class="module1 eachmod">
+                        <div class="module1_1 left">
+                            <img width="228" height="614" src="{% static 'images/module1_1.jpg' %}"/>
+                            <p class="fisrt_word">生活技巧<br/>生活乐趣</p>
+                            <a class="more" href="{% url 'video:video_list' 2 %}">查看更多 ></a>
+                        </div>
+
+                        <div class="right group_list">
+                            <div class="module1_2 box">
+                                <div class="imgslide2">
+                                    <ul class="imgs">
+
+                                        {% for banner_list in banner_shenghuo_lists %}
+                                            <li>
+                                            <a href="{% url 'video:video_detail' banner_list.id %}">
+                                                <img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_list.image }}" />
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="unslider-arrow2 prev"></div>
+                                <div class="unslider-arrow2 next"></div>
+                            </div>
+
+                                {% for chuyi_list in shenghuo_lists %}
+                                    <div class="module1_3 box">
+                                    <a href="{% url 'video:video_detail' chuyi_list.id %}">
+                                        <img width="233" height="190" src="{{ MEDIA_URL }}{{ chuyi_list.image }}"/>
+                                    </a>
+                                    <div class="des">
+                                        <a href="video-detail.html">
+                                            <h2 title="django入门">{{ chuyi_list.name }}</h2>
+                                        </a>
+                                        <span class="fl">星级：<i class="key">{{ chuyi_list.get_degree_display }}</i></span>
+                                        <span class="fr">学习人数：{{ chuyi_list.students }}</span>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="fl" title="慕课网">{{ chuyi_list.author }}</span>
+                                        <span class="star fr">{{ chuyi_list.click_nums }}</span>
+                                    </div>
+                                   </div>
+                                {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--
+            作者：1402240120@qq.com
+            时间：2018-03-21
+            描述：强身健体
+        -->
+        <section>
+
+            <div class="module">
+                <div class="wp">
+                    <h1>强身健体</h1>
+                    <div class="module1 eachmod">
+                        <div class="module1_1 left">
+                            <img width="228" height="614" src="{% static 'images/liyi.jpg' %}"/>
+                            <p class="fisrt_word">强身健体<br/>健康生活</p>
+                            <a class="more" href="{% url 'video:video_list' 3 %}">查看更多 ></a>
+                        </div>
+                        <div class="right group_list">
+                            <div class="module1_2 box">
+                                <div class="imgslide2">
+                                    <ul class="imgs">
+
+                                        {% for banner_list in banner_liyi_lists %}
+                                            <li>
+                                            <a href="{% url 'video:video_detail' banner_list.id %}">
+                                                <img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_list.image }}" />
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="unslider-arrow2 prev"></div>
+                                <div class="unslider-arrow2 next"></div>
+                            </div>
+
+                            {% for chuyi_list in liyi_lists %}
+                                    <div class="module1_3 box">
+                                    <a href="{% url 'video:video_detail' chuyi_list.id %}">
+                                        <img width="233" height="190" src="{{ MEDIA_URL }}{{ chuyi_list.image }}"/>
+                                    </a>
+                                    <div class="des">
+                                        <a href="video-detail.html">
+                                            <h2 title="django入门">{{ chuyi_list.name }}</h2>
+                                        </a>
+                                        <span class="fl">星级：<i class="key">{{ chuyi_list.get_degree_display }}</i></span>
+                                        <span class="fr">学习人数：{{ chuyi_list.students }}</span>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="fl" title="慕课网">{{ chuyi_list.author }}</span>
+                                        <span class="star fr">{{ chuyi_list.click_nums }}</span>
+                                    </div>
+                                   </div>
+                                {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
+
+{% block custom_js %}
+     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script>
+
+        for(var i=0;i<3;i++){
+            $(".group_list .box").eq(2+i*7).css("marginRight","0");
+            $(".group_list .box").eq(6+i*7).css("marginRight","0");
+            $(".group_list .box").eq(3+i*7).css("marginTop","10px");
+            $(".group_list .box").eq(4+i*7).css("marginTop","10px");
+            $(".group_list .box").eq(5+i*7).css("marginTop","10px");
+            $(".group_list .box").eq(6+i*7).css("marginTop","10px");
+        }
+</script>
+{% endblock %}
+
+
+

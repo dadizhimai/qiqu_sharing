@@ -1,0 +1,82 @@
+{% extends 'usercenter-base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>个人信息-奇趣知识共享</title>
+{% endblock %}
+
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">首页</a>></li>
+                <li><a href="/user/home/">个人中心</a>></li>
+                <li>上传视频</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{% block right_content %}
+    <div class="right">
+		<div class="personal_des ">
+			<div class="head" style="border:1px solid #eaeaea;">
+				<h1>上传视频</h1>
+			</div>
+
+			    <div class="inforcon">
+
+				    <form class="perinform" id="jsUploadVideoForm" autocomplete="off" action="{% url 'users:myvideo' %}" enctype="multipart/form-data" method="post">
+					<ul class="right">
+						<li>视&nbsp;频&nbsp;名&nbsp;称：
+                           <input type="text" name="video_name" placeholder="请输入视频名称" id="video_name" value=""/>
+                            <i class="error-tips"></i>
+                        </li>
+						<li>视&nbsp;频&nbsp;描&nbsp;述：
+                           <input type="text" id="video_desc" placeholder="请简述视频内容" name="video_desc" value=""/>
+                            <i class="error-tips"></i>
+						</li>
+                        <li>视&nbsp;频&nbsp;详&nbsp;情：
+                           <input type="text" id="video_detail" placeholder="请输入视频详情" name="video_detail" value="" />
+                            <i class="error-tips"></i>
+						</li>
+                        <li>视&nbsp;频&nbsp;时&nbsp;长：
+                           <input type="text" id="video_times" placeholder="分钟为单位"  name="video_times" value="" />
+                            <i class="error-tips"></i>
+						</li>
+{#                        <li class="button heibtn">#}
+{#							<input type="button" id="jsEditUserBtn" value="保存">#}
+{#						</li>#}
+
+                        <li>视&nbsp;频&nbsp;级&nbsp;别：
+                            <i class="error-tips"></i>
+                            <select id="video_degree"  name="video_degree">
+                            <option value="初级">美味厨艺</option>
+                            <option value="中级">生活技巧</option>
+                            <option value="高级">强生健体</option>
+                            </select>
+						</li>
+
+                        <span class="fl upload-inp-box" style="margin-left:0px;">
+                            <span class="button btn-green btn-w100" id="jsAvatarBtn">展&nbsp;示&nbsp;封&nbsp;面</span>
+                            <input type="file" name="video_image" id="avatarUp" class="js-img-up"/>
+                        </span>
+                        <span class="fl upload-inp-box" style="margin-left:100px;">
+                            <span class="button btn-green btn-w100" id="jsVideoBtn">视&nbsp;频&nbsp;上&nbsp;传</span>
+                            <input type="file" name="video_video" id="videoUp" />
+                        </span>
+                        <li class="button heibtn">#}
+							<input type="submit" value="提交" id="jsEditUserBtn" >
+						</li>
+{#                        <input type="submit" value="提交"/>#}
+					</ul>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
+                        {% csrf_token %}
+				</form>
+			    </div>
+
+		</div>
+	</div>
+{% endblock %}
+
+
