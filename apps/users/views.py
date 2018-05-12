@@ -57,7 +57,7 @@ class ActiveUserView(View):
 		if all_records:
 			for record in all_records:
 				email = record.email  # 取出邮箱激活验证码一样的邮箱
-				user = get(email=email)
+				user = UserProfile.objects.get(email=email)
 				user.is_active = True  # 修改激活字段为True
 				user.save()
 		else:
@@ -279,7 +279,7 @@ class UpdateEmailView(LoginRequireMixin, View):
 
 class MyCourseView(LoginRequireMixin, View):
 	"""
-	我的课程
+	我的视频
 	"""
 
 	def get(self, request):
@@ -295,14 +295,14 @@ class MyCourseView(LoginRequireMixin, View):
 		return render(request, "usercenter-mycourse.html", locals())
 
 
-class MyUploadVideoView(LoginRequireMixin, View):
+class UploadView(LoginRequireMixin, View):
 	"""
 	我的上传
 	"""
 
 	def get(self, request):
 		current_nav = 'user-up-video'
-		user_videos = UserUploadVideo.objects.filter(user=request.user)
+		user_videos = UserUploadVideo.objects.filter(user=request.user).order_by('add_time')
 		# 课程列表分页
 		try:
 			page = request.GET.get('page', '1')
@@ -346,7 +346,7 @@ class MyUploadVideoView(LoginRequireMixin, View):
 		# 	video_times = video_form.video_times
 		# 	video_image = request.FILES['video_image']
 		# 	video_video = request.FILES['video_video']
-
+		# 保存Video
 		video = Video()
 		video.name = video_name
 		video.desc = video_desc
@@ -355,7 +355,13 @@ class MyUploadVideoView(LoginRequireMixin, View):
 		video.learn_times = video_times
 		video.image = video_image
 		video.video = video_video
+		video.author_id = request.user.id
 		video.save()
+		# 保存用户上传表
+		userUploadVideo = UserUploadVideo()
+		userUploadVideo.user = request.user
+		userUploadVideo.video = video
+		userUploadVideo.save()
 
 		return HttpResponse('{"status": "success", "msg":"上传成功"}', content_type="application/json")
 		# else:

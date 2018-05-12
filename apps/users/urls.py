@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.conf.urls import url, include
 from .views import UserInfoView, UploadImageView, UpdatePwdView, SendEamilCodeView, UpdateEmailView
-from .views import MyCourseView, MyFavAuthorView, MyMessageView, MyFavCourseView, MyUploadVideoView, MyUploadView,MyUploadVideoView
+from .views import MyCourseView, MyFavAuthorView, MyMessageView, MyFavCourseView, UploadView, MyUploadView, MyUploadVideoView
 
 __Author__ = 'eyu Fanne'
 __Date__ = '2017/7/27'
@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^mycourse/$', MyCourseView.as_view(), name="mycourse"),
 
     # 我的上传列表
-    url(r'^myuploadvideo/$', MyUploadVideoView.as_view(), name="myuploadvideo"),
+    url(r'^myuploadvideo/$', UploadView.as_view(), name="myuploadvideo"),
 
     # 上传视频
     url(r'^myupload/$', MyUploadView.as_view(), name="myupload"),

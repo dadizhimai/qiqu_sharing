@@ -93,8 +93,8 @@
         <ul>
             <li {% if current_nav == 'user-info' %}class="active2"{% endif %}>
                 <a href="{% url 'users:user_info' %}">个人资料</a></li>
-            <li {% if current_nav == 'user-video' %}class="active2"{% endif %}>
-                <a href="{% url 'users:mycourse' %}">我的课程</a></li>
+{#            <li {% if current_nav == 'user-video' %}class="active2"{% endif %}>#}
+{#                <a href="{% url 'users:mycourse' %}">我的课程</a></li>#}
             <li {% if current_nav == 'user-up-video' %}class="active2"{% endif %}>
                 <a href="{% url 'users:myuploadvideo' %}">我的上传</a></li>
             <li {% if current_nav == 'user-up' %}class="active2"{% endif %}>
