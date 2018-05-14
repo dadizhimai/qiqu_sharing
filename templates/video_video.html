@@ -1,28 +1,42 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>"奇趣"知识共享</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/hivideo.css' %}/" />
-    <script type="text/javascript" src="{% static 'js/hivideo.js' %}"></script>
+
+{% block title %}视频播放-"奇趣"知识共享{% endblock %}
+{% block link_css %}
+   <link rel="stylesheet" href="{% static 'css/hivideo.css' %}/" />
     <style type="text/css">
         .main-wrap{
             margin: 0 auto;
-            min-width: 320px;
-            max-width: 640px;
+            min-width: 400px;
+            max-width: 880px;
         }
         .main-wrap video{
             width: 100%;
         }
     </style>
-</head>
-<body>
-    <div class="main-wrap">
-        <h1 >{{ video.name }}</h1>
-        <a href="javascript:history.back(-1)">返回上一页</a>
+{% endblock %}
 
-    </div>
+{% block content_bread %}
+<section>
+	    <div class="wp">
+		<div class="crumbs">
+			<ul>
+				<li><a href="/">首页></a></li>
+                <li><a href="{% url 'video:video_list' video.get_category_display %}">
+                    {% if video.get_category_display == '1' %}    美味厨艺
+                    {% elif video.get_category_display == '2' %}  生活技巧
+                    {% elif video.get_category_display == '3' %}  强身健体
+
+                {% endif %}</a>></li>
+				<li><a href="javascript:history.back(-1)">视频详情></a></li>
+				<li>{{ video.name }}</li>
+
+			</ul>
+		</div>
+	</div>
+    </section>
+{% endblock %}
+{% block content %}
 
     <div class="main-wrap">
         <video ishivideo="true" autoplay="true" isrotate="false" autoHide="true">
@@ -35,5 +49,25 @@
             </object>
         </video>
     </div>
-</body>
-</html>
+{% endblock %}
+{#<html lang="en">#}
+{#<head>#}
+{#    <title>"奇趣"知识共享</title>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{##}
+{#    <script type="text/javascript" src="{% static 'js/hivideo.js' %}"></script>#}
+{#    <style type="text/css">#}
+{#        .main-wrap{#}
+{#            margin: 0 auto;#}
+{#            min-width: 320px;#}
+{#            max-width: 640px;#}
+{#        }#}
+{#        .main-wrap video{#}
+{#            width: 100%;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    #}
+{#</body>#}
+{#</html>#}

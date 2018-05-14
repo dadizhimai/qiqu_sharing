@@ -371,21 +371,18 @@ class MyUploadVideoView(LoginRequireMixin, View):
 ######
 class MyFavAuthorView(LoginRequireMixin, View):
 	"""
-	我收藏的授课讲师
+	我收藏的发作作者
 	"""
 
 	def get(self, request):
 		teacher_list = []
-		fav_teachers = UserFavorite.objects.filter(user=request.user, fav_type=3)
-		for fav_teacher in fav_teachers:
-			teacher_id = fav_teacher.id
-			teacher = get(id=teacher_id)
-			teacher_list.append(teacher)
+		fav_teachers = UserFavorite.objects.filter(user=request.user, fav_type=2)
+
 		try:
 			page = request.GET.get('page', '1')
 		except PageNotAnInteger:
 			page = 1
-		p = Paginator(teacher_list, 8, request=request)
+		p = Paginator(fav_teachers, 8, request=request)
 		teacher_list = p.page(page)
 		return render(request, "usercenter-fav-author.html", locals())
 

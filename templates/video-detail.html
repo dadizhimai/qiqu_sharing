@@ -45,12 +45,12 @@
 							<span class="fr">学习人数：{{ video_detail.students }}</span>
 						</div>
 						<ul class="parameter">
-							<li><span class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ video_detail.learn_times }}</span></li>
+							<li><span class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ video_detail.learn_times }}分钟</span></li>
 {#                            <li><span class="pram word3">章&nbsp;节&nbsp;数：</span><span>{{ video_detail.get_lesson_nums }}</span></li>#}
                             <li><span class="pram word3">视频类别：</span><span title="">{{ video_detail.tag }}</span></li>
 							<li class="piclist"><span class="pram word4">观看用户：</span>
                                 {% for course in video_detail.get_learn_users %}
-                                    <span class="pic"><img width="40" height="40" src="{{ '/meida/' }}{{ video_detail.user.image }}"/></span>
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ video_detail.user.image }}"/></span>
                                 {% endfor %}
 
 
@@ -221,10 +221,10 @@ function add_fav(current_elem, fav_id, fav_type){
         cache: false,
         type: "POST",
         url:"{% url 'operation:add_org_fav' %}",
-        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        data:{'fav_id':fav_id, 'fav_type':fav_type} ,
         async: true,
         beforeSend:function(xhr, settings){
-            xhr.setRequestHeader("X-CSRFToken", "{{ csef_token }}");
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         },
         success: function(data) {
             if(data.status == 'fail'){

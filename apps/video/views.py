@@ -8,7 +8,8 @@ from django.shortcuts import render_to_response
 
 from utils.mixin_utils import LoginRequireMixin
 from .models import Video
-from operation.models import VideoComments
+from operation.models import VideoComments, UserVideo
+
 
 # Create your views here.
 
@@ -134,6 +135,13 @@ class VideoVideo(View):
 
     def get(self, request, video_id):
         video = Video.objects.get(id=video_id)
+        video.students += 1
+        video.save()
+        # 添加观看用户
+        userVideo = UserVideo()
+        userVideo.user = request.user
+        userVideo.video = video
+        userVideo.save()
         return render(request, 'video_video.html', locals())
 
 
